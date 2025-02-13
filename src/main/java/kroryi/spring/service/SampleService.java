@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SampleService {
 
-    private final SampleDAO sampleDAO;
+    @Autowired
+    private SampleDAO sampleDAO;
 
 }

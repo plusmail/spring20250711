@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kroryi.spring.mapper.MemberListMapper">
+    <resultMap id="memberListMap" type="kroryi.spring.dto.Member">
+    <id column="mid" property="mid"/>
+    <result column="mname" property="mname"/>
+    <result column="mpw" property="mpw"/>
+    <result column="memail" property="memail"/>
+    <result column="uuid" property="uuid"/>
+    </resultMap>
+<!--    id는 TimeMapper2 Class에 있는 메서드명과 일치-->
+    <select id="getMemberList" resultMap="memberListMap">
+        select mid,mpw,mname,memail,uuid from tbl_member
+    </select>
+
+    <select id="selectMember" parameterType="String" resultType="kroryi.spring.dto.Member">
+        select * from tbl_member where mid=#{mid}
+    </select>
+    <select id="getName" resultType="String">
+        select mname from tbl_member where mid="test01"
+    </select>
+
+    <insert id="insertMember" parameterType="kroryi.spring.dto.Member">
+        INSERT INTO tbl_member (mid,mpw,mname,memail,uuid)
+        VALUES (#{mid}, #{mpw}, #{mname}, #{memail}, #{uuid})
+    </insert>
+
+    <update id="updateMember" parameterType="kroryi.spring.dto.Member">
+        UPDATE tbl_member
+        SET mname= #{mname},
+            memail = #{memail}
+        WHERE mid = #{mid}
+    </update>
+
+    <resultMap id="MemberWithOrdersResultMap" type="kroryi.spring.dto.Member">
+        <id column="mid" property="mid"/>
+        <result column="mname" property="mname"/>
+        <result column="memail" property="memail"/>
+        <collection property="orders" ofType="kroryi.spring.dto.Order">
+            <id property="id" column="id"/>
+            <result property="productName" column="productName"/>
+            <result property="orderDate" column="orderDate"/>
+        </collection>
+    </resultMap>
+
+    <select id="getMemberWithOrders" resultMap="MemberWithOrdersResultMap">
+        select m.mid,m.mname,o.id, o.productName,o.orderDate
+        from tbl_member m left join tbl_orders o on m.mid = o.fk_mid
+        where o.id is not null and m.mid = #{mid}
+
+    </select>
+
+    <select id="getMemberAllWithOrders" resultMap="MemberWithOrdersResultMap">
+        select m.mid,m.mname,o.id, o.productName,o.orderDate
+        from tbl_member m left join tbl_orders o on m.mid = o.fk_mid
+        where o.id is not null and m.mid like concat(#{mid}, '%')
+
+    </select>
+
+
+
+
+
+</mapper>
