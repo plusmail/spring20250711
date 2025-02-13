@@ -1,16 +1,19 @@
 package kroryi.spring;
 
+import kroryi.spring.service.SampleService;
 import lombok.extern.log4j.Log4j2;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@Log4j2
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations =  "file:src/main/webapp/WEB-INF/root-context.xml")
 public class SampleTests {
+    @Autowired
+    private SampleService sampleService;
 
     @Test
     public void standalone() {

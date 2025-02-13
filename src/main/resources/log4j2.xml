@@ -22,6 +22,18 @@
             <AppenderRef ref="Console_Appender"/>
             <AppenderRef ref="File_Appender"/>
         </Root>
+        <!-- Spring Framework 로깅 설정 -->
+        <Logger name="org.springframework" level="INFO" additivity="false">
+            <AppenderRef ref="Console_Appender"/>
+            <AppenderRef ref="File_Appender"/>
+        </Logger>
+        <!-- Bean 생성 관련 로그를 DEBUG 레벨로 출력 -->
+        <Logger name="org.springframework.beans.factory" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console_Appender"/>
+        </Logger>
+        <Logger name="org.springframework.context" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console_Appender"/>
+        </Logger>
 
     </Loggers>
 </Configuration>
