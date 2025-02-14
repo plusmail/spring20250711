@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kroryi.spring.mapper.DepartmentMapper">
+    <resultMap id="ListMap" type="department">
+        <id column="code" property="code"/>
+        <result column="name" property="name"/>
+        <result column="floor" property="floor"/>
+    </resultMap>
+
+
+    <insert id="insert" parameterType="department" useGeneratedKeys="true" keyProperty="code">
+         INSERT INTO department (name, floor) VALUES (#{name}, #{floor})
+    </insert>
+
+    <select id="getAll" resultMap="ListMap">
+        SELECT code, name, floor from department
+    </select>
+
+
+    <select id="get" parameterType="Long" resultType="String">
+        select code,name, floor from department where code=#{code}
+    </select>
+
+
+</mapper>

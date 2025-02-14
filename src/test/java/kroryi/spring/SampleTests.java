@@ -120,6 +120,7 @@ public class SampleTests {
 
     @Test
     public void getMemberAllWithOrders(){
+        log.info("---------------");
         List<Member> member = memberListMapper.getMemberAllWithOrders("test");
         member.forEach(m -> {
             System.out.println(m.getMid() + " " + m.getMname() + " " + m.getMemail() + " " + m.getUuid());

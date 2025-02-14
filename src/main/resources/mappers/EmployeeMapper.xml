@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kroryi.spring.mapper.EmployeeMapper">
+
+    <resultMap id="ListMap" type="employee">
+        <id column="eno" property="eno"/>
+        <result column="ename" property="ename"/>
+        <result column="salary" property="salary"/>
+        <result column="gender" property="gender"/>
+        <result column="joinDate" property="joinDate"/>
+
+<!--        1:1관계-->
+        <association property="fk_department" javaType="department">
+            <id property="code" column="department_code"/>
+            <result property="name" column="department_name"/>
+            <result property="floor" column="department_floor"/>
+        </association>
+
+<!--        1:N관계-->
+        <collection property="fk_title" ofType="title">
+            <id property="code" column="title_code"/>
+            <result property="name" column="title_name"/>
+        </collection>
+
+    </resultMap>
+
+    <select id="getEmployeeAllWithTitleWithDepartment" resultMap="ListMap">
+        select e.eno ,
+               e.ename,
+               e.salary,
+               e.gender,
+               e.joindate,
+               d.code  as department_code,
+               d.name  as department_name,
+               d.floor as department_floor,
+               t.code  as title_code,
+               t.name  as title_name
+        from employee e
+                 left join department d on e.fk_department = d.code
+                 left join title t on e.fk_title = t.code
+    </select>
+
+
+
+</mapper>

@@ -17,5 +17,4 @@ public class Member {
     private String memail;
     private String uuid;
     private List<Order> orders;
-    private List<Option> options;
 }

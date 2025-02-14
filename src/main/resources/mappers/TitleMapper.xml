@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kroryi.spring.mapper.TitleMapper">
+    <resultMap id="titleListMap" type="title">
+        <id column="code" property="code"/>
+        <result column="name" property="name"/>
+    </resultMap>
+
+
+    <insert id="insert" parameterType="title" useGeneratedKeys="true" keyProperty="code">
+         INSERT INTO title (name) VALUES (#{name})
+    </insert>
+
+<!--    <select id="getTitleAll" resultMap="titleListMap">-->
+<!--        SELECT code, name from title-->
+<!--    </select>-->
+
+    <sql id="selectSqlTitle">
+        select code, name from title
+    </sql>
+
+    <sql id="whereSqlTitle">
+        <where>
+            <if test="code != null">
+                code = #{code}
+            </if>
+        </where>
+    </sql>
+
+    <sql id="whereSqlTitleName">
+        <where>
+            <if test="name != null">
+                name = #{name}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectTitleAll" resultMap="titleListMap">
+        <include refid="selectSqlTitle"/>
+    </select>
+
+    <select id="selectTitleByCode" parameterType="Long"  resultType="title">
+        <include refid="selectSqlTitle"/>
+        <include refid="whereSqlTitle"/>
+    </select>
+
+    <select id="selectTitleByName" parameterType="String" resultType="title">
+        <include refid="selectSqlTitle"/>
+        <include refid="whereSqlTitleName"/>
+    </select>
+
+
+
+
+</mapper>

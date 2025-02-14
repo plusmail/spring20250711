@@ -18,10 +18,14 @@
         </RollingFile>
     </Appenders>
     <Loggers>
-        <Root level="ERROR" additivity="false">
+        <Root level="debug" additivity="false">
             <AppenderRef ref="Console_Appender"/>
             <AppenderRef ref="File_Appender"/>
         </Root>
+<!--        <Logger name="com.zaxxer.hikari.HikariDataSource" level="DEBUG" additivity="false">-->
+<!--            <AppenderRef ref="Console_Appender"/>-->
+<!--            <AppenderRef ref="File_Appender"/>-->
+<!--        </Logger>-->
 <!--        &lt;!&ndash; Spring Framework 로깅 설정 &ndash;&gt;-->
 <!--        <Logger name="org.springframework" level="INFO" additivity="false">-->
 <!--            <AppenderRef ref="Console_Appender"/>-->

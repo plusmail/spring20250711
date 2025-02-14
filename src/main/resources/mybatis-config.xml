@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+    <settings>
+        <setting name="jdbcTypeForNull" value="NULL"/>
+    </settings>
+    <typeAliases>
+        <typeAlias type="kroryi.spring.dto.Member" alias="member"/>
+        <typeAlias type="kroryi.spring.dto.Order" alias="order"/>
+
+        <typeAlias type="kroryi.spring.dto.TitleDTO" alias="title"/>
+        <typeAlias type="kroryi.spring.dto.DepartmentDTO" alias="department"/>
+        <typeAlias type="kroryi.spring.dto.EmployeeDTO" alias="employee"/>
+        <!--        <package name="kroryi.spring.dto"/>-->
+        <!--        package 경로에 있는 여러 Class를 소문자 형식의 클래스 명으로 사용하게 가능.-->
+        <!--        Member -> member,  MemberList -> memberList-->
+
+    </typeAliases>
+
+
+</configuration>

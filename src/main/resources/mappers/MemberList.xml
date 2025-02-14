@@ -2,9 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="kroryi.spring.mapper.MemberListMapper">
-    <resultMap id="memberListMap" type="kroryi.spring.dto.Member">
+    <resultMap id="memberListMap" type="member">
     <id column="mid" property="mid"/>
     <result column="mname" property="mname"/>
     <result column="mpw" property="mpw"/>
@@ -16,30 +15,30 @@
         select mid,mpw,mname,memail,uuid from tbl_member
     </select>
 
-    <select id="selectMember" parameterType="String" resultType="kroryi.spring.dto.Member">
+    <select id="selectMember" parameterType="String" resultType="member">
         select * from tbl_member where mid=#{mid}
     </select>
     <select id="getName" resultType="String">
         select mname from tbl_member where mid="test01"
     </select>
 
-    <insert id="insertMember" parameterType="kroryi.spring.dto.Member">
+    <insert id="insertMember" parameterType="member">
         INSERT INTO tbl_member (mid,mpw,mname,memail,uuid)
         VALUES (#{mid}, #{mpw}, #{mname}, #{memail}, #{uuid})
     </insert>
 
-    <update id="updateMember" parameterType="kroryi.spring.dto.Member">
+    <update id="updateMember" parameterType="member">
         UPDATE tbl_member
         SET mname= #{mname},
             memail = #{memail}
         WHERE mid = #{mid}
     </update>
 
-    <resultMap id="MemberWithOrdersResultMap" type="kroryi.spring.dto.Member">
+    <resultMap id="MemberWithOrdersResultMap" type="member">
         <id column="mid" property="mid"/>
         <result column="mname" property="mname"/>
         <result column="memail" property="memail"/>
-        <collection property="orders" ofType="kroryi.spring.dto.Order">
+        <collection property="orders" ofType="order">
             <id property="id" column="id"/>
             <result property="productName" column="productName"/>
             <result property="orderDate" column="orderDate"/>
