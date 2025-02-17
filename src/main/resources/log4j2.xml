@@ -1,43 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
+<Configuration>
     <Properties>
         <Property name="logNm">Log4j2</Property>
-<!--        <Property name="layoutPattern">%style{%d{yyyy/MM/dd HH:mm:ss}}{cyan} %highlight{[%-5p]}{FATAL=bg_red, ERROR=red, INFO=green, DEBUG=blue} [%C] %style{[%t]}{yellow} %m%n</Property>-->
-        <Property name="layoutPattern">%highlight{[%-5p]}{FATAL=bg_red, ERROR=red, INFO=green, DEBUG=blue} [%C] %m%n</Property>
+        <!--        <Property name="layoutPattern">%style{%d{yyyy/MM/dd HH:mm:ss}}{cyan} %highlight{[%-5p]}{FATAL=bg_red, ERROR=red, INFO=green, DEBUG=blue} [%C] %style{[%t]}{yellow} %m%n</Property>-->
+        <Property name="layoutPattern">%highlight{[%-5p]}{FATAL=bg_red, ERROR=red, INFO=yellow, DEBUG=blue} [%C] %m%n
+        </Property>
     </Properties>
     <Appenders>
-        <Console name="Console_Appender" target="SYSTEM_OUT">
+        <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="${layoutPattern}" disableAnsi="false"/> <!-- ANSI 활성화 -->
         </Console>
-        <RollingFile name="File_Appender" fileName="logs/${logNm}.log" filePattern="logs/${logNm}%d{yyyy-MM-dd}_%i.log.gz">
-            <PatternLayout pattern="${layoutPattern}"/>
+        <File name="file" fileName="./logs/jdbc_study.log" append="true">
+            <PatternLayout pattern="[%-5level] [%d{yyyy-MM-dd HH:mm:ss}] %m%n"/>
+        </File>
+        <!-- 일자별 로그 -->
+        <RollingFile name="RollingFile_Daily">
+            <FileName>./logs/jdbc_study_daily_log</FileName>
+            <FilePattern>./logs/time-based-logs/%d{yyyy-MM-dd}.log</FilePattern>
+            <PatternLayout pattern="[%-5level] [%d{yyyy-MM-dd HH:mm:ss a}] %m%n"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="100MB"/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
             </Policies>
-            <DefaultRolloverStrategy max="20" fileIndex="min"/>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+        <!-- 특정크기마다 백업하여 로그 -->
+        <RollingFile name="RollingFile_FileSize">
+            <FileName>./logs/jdbc_study_size_log</FileName>
+            <FilePattern>./logs/size-based-logs/%d{yyyy-MM-dd-hh}-%i.log.zip</FilePattern>
+            <PatternLayout pattern="[%-5level] [%d{yyyy-MM-dd HH:mm:ss a}] %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 KB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
         </RollingFile>
     </Appenders>
     <Loggers>
-        <Root level="debug" additivity="false">
-            <AppenderRef ref="Console_Appender"/>
-            <AppenderRef ref="File_Appender"/>
+        <Root level="DEBUG">
+            <AppenderRef ref="Console"/>
         </Root>
-<!--        <Logger name="com.zaxxer.hikari.HikariDataSource" level="DEBUG" additivity="false">-->
-<!--            <AppenderRef ref="Console_Appender"/>-->
-<!--            <AppenderRef ref="File_Appender"/>-->
-<!--        </Logger>-->
-<!--        &lt;!&ndash; Spring Framework 로깅 설정 &ndash;&gt;-->
-<!--        <Logger name="org.springframework" level="INFO" additivity="false">-->
-<!--            <AppenderRef ref="Console_Appender"/>-->
-<!--            <AppenderRef ref="File_Appender"/>-->
-<!--        </Logger>-->
-<!--        &lt;!&ndash; Bean 생성 관련 로그를 DEBUG 레벨로 출력 &ndash;&gt;-->
-<!--        <Logger name="org.springframework.beans.factory" level="DEBUG" additivity="false">-->
-<!--            <AppenderRef ref="Console_Appender"/>-->
-<!--        </Logger>-->
-<!--        <Logger name="org.springframework.context" level="DEBUG" additivity="false">-->
-<!--            <AppenderRef ref="Console_Appender"/>-->
-<!--        </Logger>-->
+        <Logger name="jdbc_study" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="file"/>
+            <AppenderRef ref="RollingFile_Daily"/>
+            <AppenderRef ref="RollingFile_FileSize"/>
+        </Logger>
+        <Logger name="org.springframework" level="ERROR" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="file"/>
+        </Logger>
+        <Logger name="com.zaxxer.hikari" level="ERROR" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="file"/>
+        </Logger>
+        <Logger name="org.apache.ibatis" level="TRACE" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="file"/>
+        </Logger>
 
     </Loggers>
 </Configuration>

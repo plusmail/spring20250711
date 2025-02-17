@@ -11,4 +11,5 @@ import lombok.Data;
 public class TitleDTO {
     private int code;
     private String name;
+//    private int fk_eno;
 }

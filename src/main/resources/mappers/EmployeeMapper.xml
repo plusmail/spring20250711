@@ -27,12 +27,12 @@
 
     </resultMap>
 
-    <select id="getEmployeeAllWithTitleWithDepartment" resultMap="ListMap">
+    <select id="getEmployeeAllWithTitleWithDepartment1" resultMap="ListMap">
         select e.eno ,
                e.ename,
                e.salary,
                e.gender,
-               e.joindate,
+               e.joinDate,
                d.code  as department_code,
                d.name  as department_name,
                d.floor as department_floor,

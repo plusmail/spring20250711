@@ -15,9 +15,9 @@
          INSERT INTO department (name, floor) VALUES (#{name}, #{floor})
     </insert>
 
-    <select id="getAll" resultMap="ListMap">
-        SELECT code, name, floor from department
-    </select>
+<!--    <select id="getAll" resultMap="ListMap">-->
+<!--        SELECT code, name, floor from department-->
+<!--    </select>-->
 
 
     <select id="get" parameterType="Long" resultType="String">

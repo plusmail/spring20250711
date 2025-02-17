@@ -75,18 +75,52 @@ public class EmployeeTests {
         });
     }
 
+    @Test
+    public void getDepartmentAll2(){
+        List<DepartmentDTO> departmentDTOS = departmentMapper.getAll2();
+        departmentDTOS.forEach( departmentDTO -> {
+            System.out.println(departmentDTO);
+        });
+    }
+
 
     @Test
     public void getEmployeeAllWithTitleWithDepartment1(){
 
         List<EmployeeDTO> employeeDTOS =
-                employeeMapper.getEmployeeAllWithTitleWithDepartment();
+                employeeMapper.getEmployeeAllWithTitleWithDepartment1();
+        employeeDTOS.forEach( employeeDTO -> {
+            System.out.println(employeeDTO);
+        });
+    }
+
+    @Test
+    public void getEmployeeAllWithTitleWithDepartment2(){
+
+        List<EmployeeDTO> employeeDTOS =
+                employeeMapper.getEmployeeAllWithTitleWithDepartment2();
         employeeDTOS.forEach( employeeDTO -> {
             System.out.println(employeeDTO);
         });
     }
 
 
+    @Test
+    public void getTitlesByEmployee(){
+        List<TitleDTO> titleDTOS = titleMapper.getTitlesByEmployee(1);
+        titleDTOS.forEach( titleDTO -> {
+            System.out.println(titleDTO);
+        });
+    }
+
+    @Test
+    public void getDepartmentsByEmployee(){
+        List<DepartmentDTO> departmentDTOS = departmentMapper.getDepartmentsByEmployee(1L);
+        departmentDTOS.forEach( departmentDTO -> {
+            System.out.println(departmentDTO);
+        });
+
+    }
 
 
 }
