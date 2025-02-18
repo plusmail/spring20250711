@@ -10,35 +10,37 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="${layoutPattern}" disableAnsi="false"/> <!-- ANSI 활성화 -->
         </Console>
-        <File name="file" fileName="./logs/jdbc_study.log" append="true">
+        <File name="file" fileName="C:/Users/edu/IdeaProjects/spring01_1/logs/jdbc_study.log" append="true">
             <PatternLayout pattern="[%-5level] [%d{yyyy-MM-dd HH:mm:ss}] %m%n"/>
         </File>
         <!-- 일자별 로그 -->
-        <RollingFile name="RollingFile_Daily">
-            <FileName>./logs/jdbc_study_daily_log</FileName>
-            <FilePattern>./logs/time-based-logs/%d{yyyy-MM-dd}.log</FilePattern>
+        <RollingFile name="RollingFile_Daily"
+                     fileName="C:/Users/edu/IdeaProjects/spring01_1/logs/time-based-logs/jdbc_study_time_log.log"
+                     filePattern="C:/Users/edu/IdeaProjects/spring01_1/logs/time-based-logs/jdbc_study_time_log-%d{yyyy-MM-dd}.log">
             <PatternLayout pattern="[%-5level] [%d{yyyy-MM-dd HH:mm:ss a}] %m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
             </Policies>
             <DefaultRolloverStrategy max="5"/>
         </RollingFile>
+
         <!-- 특정크기마다 백업하여 로그 -->
-        <RollingFile name="RollingFile_FileSize">
-            <FileName>./logs/jdbc_study_size_log</FileName>
-            <FilePattern>./logs/size-based-logs/%d{yyyy-MM-dd-hh}-%i.log.zip</FilePattern>
+        <RollingFile name="RollingFile_FileSize"
+                     fileName="C:/Users/edu/IdeaProjects/spring01_1/logs/size-based-logs/jdbc_study_size_log.log"
+                     filePattern="C:/Users/edu/IdeaProjects/spring01_1/logs/size-based-logs/jdbc_study_size_log-%d{yyyy-MM-dd-hh}-%i.log.zip">
             <PatternLayout pattern="[%-5level] [%d{yyyy-MM-dd HH:mm:ss a}] %m%n"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="10 KB"/>
+                <SizeBasedTriggeringPolicy size="50 KB"/> <!-- 50KB로 조정 -->
             </Policies>
             <DefaultRolloverStrategy max="5"/>
         </RollingFile>
+
     </Appenders>
     <Loggers>
-        <Root level="DEBUG">
+        <Root level="INFO">
             <AppenderRef ref="Console"/>
         </Root>
-        <Logger name="jdbc_study" level="DEBUG" additivity="false">
+        <Logger name="kroryi.spring" level="DEBUG" additivity="false">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="file"/>
             <AppenderRef ref="RollingFile_Daily"/>

@@ -13,8 +13,6 @@
        http://mybatis.org/schema/mybatis-spring
        http://mybatis.org/schema/mybatis-spring.xsd">
 
-<!--    @Controller @Service @Repository 등의 주연급 클래스를 자동 스캔(등록) 하도록 설정-->
-    <context:component-scan base-package="kroryi.spring"/>
 
 <!--    <bean class="kroryi.spring.SampleDAO"/>-->
 <!--    <bean class="kroryi.spring.service.SampleService"/>-->

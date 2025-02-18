@@ -1,21 +1,24 @@
 package kroryi.spring.controller;
 
+import kroryi.spring.dto.EmployeeImageDTO;
 import kroryi.spring.service.FileService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.io.IOException;
+import java.util.List;
 
+@Log4j2
 @Controller
 @RequestMapping("/image")
 @RequiredArgsConstructor
+@EnableWebMvc
 public class ImageController {
 
     private final FileService service;
@@ -31,11 +34,12 @@ public class ImageController {
 //        }
 //    }
 
-    @GetMapping("/upload")
+    @RequestMapping(value="/upload", method = RequestMethod.GET)
     public String uploadForm(){
         return "uploadForm";
     }
 
+    // spring 4.3 (2016부터 사용)
     @PostMapping("/upload")
     public String uploadFile(
             @RequestParam("employeeId") int employeeId,
@@ -52,5 +56,22 @@ public class ImageController {
             return "uploadFailure";
         }
     }
+
+    @GetMapping("/{id}")
+    public String viewImage(@PathVariable int id, Model model) {
+        EmployeeImageDTO dto = service.getImageById(id);
+        model.addAttribute("dto", dto);
+
+        return "imageView";
+    }
+
+    @GetMapping("/list/{employeeId}")
+    public String viewImageList(@PathVariable int employeeId, Model model) {
+        List<EmployeeImageDTO> dto = service.getImageByEmployeeId(employeeId);
+        model.addAttribute("dto", dto);
+
+        return "imageList";
+    }
+
 
 }

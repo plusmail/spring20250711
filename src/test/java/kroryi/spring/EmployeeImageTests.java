@@ -14,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.nio.file.Paths;
 
 import java.io.*;
+import java.util.List;
 
 @Log4j2
 @ExtendWith(SpringExtension.class)
@@ -60,5 +61,19 @@ public class EmployeeImageTests {
             throw new RuntimeException(e);
         }
     }
+
+
+    @Test
+    public void viewImage() {
+        EmployeeImageDTO dto = employeeImageMapper.getImageById(1);
+        log.info(dto.toString());
+    }
+
+    @Test
+    public void viewImageList() {
+        List<EmployeeImageDTO> dto = employeeImageMapper.getImageByEmployeeId(1);
+        dto.forEach(dto1 -> log.info(dto1.toString()));
+    }
+
 
 }
