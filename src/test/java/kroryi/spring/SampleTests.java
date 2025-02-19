@@ -85,7 +85,7 @@ public class SampleTests {
     @Test
     public void InsertMember() {
         Member member = Member.builder()
-                .mid("test08")
+                .mid("test02")
                 .mpw("123456")
                 .mname("똥강아지")
                 .memail("123456@qq.com")

@@ -8,6 +8,7 @@ import kroryi.spring.mapper.DepartmentMapper;
 import kroryi.spring.mapper.EmployeeMapper;
 import kroryi.spring.mapper.TitleMapper;
 import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.core.util.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class EmployeeTests {
     public void insert() {
 
         TitleDTO titleDTO = TitleDTO.builder()
-                .name("상무")
+                .name("대표이사")
                 .build();
 
         titleMapper.insert(titleDTO);
@@ -60,7 +61,8 @@ public class EmployeeTests {
     public void selectTitleByName(){
         List<TitleDTO> titleDTOS = titleMapper.selectTitleByName("사원");
         titleDTOS.forEach( titleDTO -> {
-            System.out.println(titleDTO);
+            log.info(titleDTO);
+
         });
 
     }
