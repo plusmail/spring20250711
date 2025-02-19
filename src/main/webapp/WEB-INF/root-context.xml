@@ -51,4 +51,19 @@
     <!--    <context:component-scan base-package="kroryi.spring.vo"/>-->
 
 
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <bean class="kroryi.spring.formatter.LocalDateFormatter"/>
+            </set>
+        </property>
+    </bean>
+
+
 </beans>

@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1>Todo 등록화면</h1>
+<H2>${errors}</H2>
 <form action="/todo/register" method="post">
     <div>
         제목: <input type="text" name="title">

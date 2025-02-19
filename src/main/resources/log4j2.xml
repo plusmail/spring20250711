@@ -10,13 +10,13 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="${layoutPattern}" disableAnsi="false"/> <!-- ANSI 활성화 -->
         </Console>
-        <File name="file" fileName="C:/Users/edu/IdeaProjects/spring01_1/logs/jdbc_study.log" append="true">
-            <PatternLayout pattern="[%-5level] [%d{yyyy-MM-dd HH:mm:ss}] %m%n"/>
-        </File>
+<!--        <File name="file" fileName="logs/jdbc_study.log" append="true">-->
+<!--            <PatternLayout pattern="[%-5level] [%d{yyyy-MM-dd HH:mm:ss}] %m%n"/>-->
+<!--        </File>-->
         <!-- 일자별 로그 -->
         <RollingFile name="RollingFile_Daily"
-                     fileName="C:/Users/edu/IdeaProjects/spring01_1/logs/time-based-logs/jdbc_study_time_log.log"
-                     filePattern="C:/Users/edu/IdeaProjects/spring01_1/logs/time-based-logs/jdbc_study_time_log-%d{yyyy-MM-dd}.log">
+                     fileName="./logs/${logNm}.log"
+                     filePattern="./logs/$${date:yyyy}/$${date:MM}/$${date:dd}/${logNm}_%d{yyyyMMddHH}.log">
             <PatternLayout pattern="[%-5level] [%d{yyyy-MM-dd HH:mm:ss a}] %m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
@@ -26,8 +26,8 @@
 
         <!-- 특정크기마다 백업하여 로그 -->
         <RollingFile name="RollingFile_FileSize"
-                     fileName="C:/Users/edu/IdeaProjects/spring01_1/logs/size-based-logs/jdbc_study_size_log.log"
-                     filePattern="C:/Users/edu/IdeaProjects/spring01_1/logs/size-based-logs/jdbc_study_size_log-%d{yyyy-MM-dd-hh}-%i.log.zip">
+                     fileName="./logs/${logNm}_size.log"
+                     filePattern="./logs/$${date:yyyy}/$${date:MM}/$${date:dd}/${logNm}_%d{yyyyMMddHH}.log.zip">
             <PatternLayout pattern="[%-5level] [%d{yyyy-MM-dd HH:mm:ss a}] %m%n"/>
             <Policies>
                 <SizeBasedTriggeringPolicy size="50 KB"/> <!-- 50KB로 조정 -->
@@ -37,30 +37,33 @@
 
     </Appenders>
     <Loggers>
-        <Root level="INFO">
+        <Root level="TRACE">
             <AppenderRef ref="Console"/>
+<!--            <AppenderRef ref="file"/>-->
+            <AppenderRef ref="RollingFile_Daily"/>
+            <AppenderRef ref="RollingFile_FileSize"/>
         </Root>
         <Logger name="kroryi.spring" level="INFO" additivity="false">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="file"/>
+<!--            <AppenderRef ref="file"/>-->
             <AppenderRef ref="RollingFile_Daily"/>
             <AppenderRef ref="RollingFile_FileSize"/>
         </Logger>
         <Logger name="kroryi.spring.mapper" level="TRACE" additivity="false">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="file"/>
+<!--            <AppenderRef ref="file"/>-->
         </Logger>
         <Logger name="org.springframework" level="ERROR" additivity="false">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="file"/>
+<!--            <AppenderRef ref="file"/>-->
         </Logger>
         <Logger name="com.zaxxer.hikari" level="ERROR" additivity="false">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="file"/>
+<!--            <AppenderRef ref="file"/>-->
         </Logger>
         <Logger name="org.apache.ibatis" level="TRACE" additivity="false">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="file"/>
+<!--            <AppenderRef ref="file"/>-->
         </Logger>
 
     </Loggers>

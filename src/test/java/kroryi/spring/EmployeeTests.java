@@ -12,13 +12,17 @@ import org.apache.logging.log4j.core.util.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
 
 @Log4j2
 @ExtendWith(SpringExtension.class)
+@WebAppConfiguration
+@ComponentScan(basePackages = "kroryi.spring")
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/root-context.xml")
 public class EmployeeTests {
     @Autowired
