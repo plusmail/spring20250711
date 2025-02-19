@@ -1,6 +1,8 @@
 package kroryi.spring.controller;
 
 import kroryi.spring.dto.TodoDTO;
+import kroryi.spring.service.TodoService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/todo")
 @Log4j2
+@RequiredArgsConstructor
 public class TodoController {
+
+    private final TodoService service;
 
     @GetMapping("/list")
     public void list() {
@@ -32,7 +37,8 @@ public class TodoController {
     public String registerPost(@ModelAttribute("dto") TodoDTO todoDTO, Model model){
         log.info("POST todo 등록....");
         log.info(todoDTO.toString());
-//        model.addAllAttributes("dto", todoDTO);
+
+        service.register(todoDTO);
 
         return "/todo/todoTest";
     }

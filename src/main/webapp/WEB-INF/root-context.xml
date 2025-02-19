@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context
-       https://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/mvc
        https://www.springframework.org/schema/mvc/spring-mvc.xsd
        http://mybatis.org/schema/mybatis-spring
-       http://mybatis.org/schema/mybatis-spring.xsd">
-
-
-<!--    <bean class="kroryi.spring.SampleDAO"/>-->
-<!--    <bean class="kroryi.spring.service.SampleService"/>-->
+       https://mybatis.org/schema/mybatis-spring.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
 
     <mvc:annotation-driven/>
 
@@ -43,6 +39,16 @@
 
     </bean>
     <mybatis:scan base-package="kroryi.spring.mapper"/>
+
+    <context:component-scan base-package="kroryi.spring"/>
+    <!--    <context:component-scan base-package="kroryi.spring.config"/>-->
+    <!--    <context:component-scan base-package="kroryi.spring.controller"/>-->
+    <!--    <context:component-scan base-package="kroryi.spring.dto"/>-->
+    <!--    <context:component-scan base-package="kroryi.spring.exception"/>-->
+    <!--    <context:component-scan base-package="kroryi.spring.formatter"/>-->
+    <!--    <context:component-scan base-package="kroryi.spring.mapper"/>-->
+    <!--    <context:component-scan base-package="kroryi.spring.service"/>-->
+    <!--    <context:component-scan base-package="kroryi.spring.vo"/>-->
 
 
 </beans>

@@ -40,11 +40,15 @@
         <Root level="INFO">
             <AppenderRef ref="Console"/>
         </Root>
-        <Logger name="kroryi.spring" level="DEBUG" additivity="false">
+        <Logger name="kroryi.spring" level="INFO" additivity="false">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="file"/>
             <AppenderRef ref="RollingFile_Daily"/>
             <AppenderRef ref="RollingFile_FileSize"/>
+        </Logger>
+        <Logger name="kroryi.spring.mapper" level="TRACE" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="file"/>
         </Logger>
         <Logger name="org.springframework" level="ERROR" additivity="false">
             <AppenderRef ref="Console"/>

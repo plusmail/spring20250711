@@ -1,20 +1,21 @@
-package kroryi.spring.dto;
+package kroryi.spring.vo;
+
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-@Data
-@Builder
+@Getter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class TodoDTO {
+@Builder
+public class TodoVO {
 
     private Long tno;
     private String title;
     private LocalDate dueDate;
-    private boolean finished;
     private String writer;
+    private boolean finished;
 }

@@ -1,47 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
+
 
     <mvc:annotation-driven/>
-<!--    @Controller @Service @Repository 등의 주연급 클래스를 자동 스캔(등록) 하도록 설정-->
-    <context:component-scan base-package="kroryi.spring"/>
 
-<!--    http://localhost:8080/image/test.png-->
-<!--    mapping는 브라우즈 접속시 포트(8080) 뒤 / 이후에 오는 경로 정보-->
-<!--    location는 서버의 webapp경로 하부의 static 경로와 매칭-->
-    <mvc:resources mapping="/**" location="/static/"/>
+    <mvc:resources mapping="/images/**" location="/static/images/*"/>
+    <mvc:resources mapping="/css/**" location="/static/css/*"/>
+    <mvc:resources mapping="/js/**" location="/static/js/*"/>
+    <mvc:resources mapping="/html/**" location="/static/html/"/>
 
-<!--    jsp 파일을 servlet에서 찾는 기본 경로 지정과 , 확장자 생략 가능하게 함.-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 
-<!--    // 기본적인 Bean등록방법-->
-    <bean id="multipartResolver"
-          class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <bean class="kroryi.spring.formatter.LocalDateFormatter"/>
+            </set>
+        </property>
     </bean>
 
-<!--    // 날짜를 포멧하는 기본 클래스가 있는데 재정의 할때-->
-<!--    <bean id="conversionService"-->
-<!--          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
-<!--        <property name="formatters">-->
-<!--            <set>-->
-<!--                <bean class="kroryi.spring.formatter.LocalDateFormatter"/>-->
-<!--            </set>-->
-<!--        </property>-->
-<!--    </bean>-->
-
-<!--    <mvc:annotation-driven conversion-service="conversionService"/>-->
+    <mvc:annotation-driven conversion-service="conversionService"/>
 
 
 </beans>
